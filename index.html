@@ -27,7 +27,7 @@
 <!-- https://developers.google.com/cast/docs/reference/web_receiver -->
 <script>
 
-    console.log("started 1.0.1");
+    console.log("started 1.0.2");
 
     //=====[context]=====
 
@@ -80,8 +80,16 @@
             //https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.LoadRequestData
             console.log("player load:");
             console.log(requestData.media);
-            //console.log(requestData.customData);
-            //playerManager.setPlaybackConfig(getPlaybackConfig());
+
+            const headers = requestData.media.customData.headers;
+            const playbackConfig = new cast.framework.PlaybackConfig()
+            playbackConfig.manifestRequestHandler = requestInfo => {
+                requestInfo.headers = headers;
+                console.log("set headers:")
+                console.log(headers);
+            };
+            playerManager.setPlaybackConfig(playbackConfig);
+
             return requestData;
         }
     );
