@@ -27,15 +27,21 @@
 <!-- https://developers.google.com/cast/docs/reference/web_receiver -->
 <script>
 
-    console.log("started 1.0.0");
+    console.log("started 1.0.1");
 
     //=====[context]=====
 
     const context = cast.framework.CastReceiverContext.getInstance();
 
-    const channel = "urn:x-cast:webvideobrowser";
-
     //console.log(context.getDeviceCapabilities());
+
+    //message channel
+    const channel = "urn:x-cast:webvideobrowser";
+    context.addCustomMessageListener(channel, event => {
+            console.log("received custom message:");
+            console.log(event);
+        }
+    );
 
     //system error listener
     context.addEventListener(cast.framework.system.EventType.ERROR, event => {
@@ -45,17 +51,6 @@
             context.sendCustomMessage(channel, undefined, event.data);
         }
     );
-
-    /*
-    //message channel
-    context.addCustomMessageListener(channel, event => {
-            console.log("received custom message: " + event);
-            let data = event.data;
-            let message = data.message;
-            console.log("received message: " + message);
-        }
-    );
-    */
 
     //=====[player]=====
 
