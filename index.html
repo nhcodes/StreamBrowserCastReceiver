@@ -27,7 +27,7 @@
 <!-- https://developers.google.com/cast/docs/reference/web_receiver -->
 <script>
 
-    console.log("started 1.0.3");
+    console.log("started 1.0.0");
 
     //=====[context]=====
 
@@ -36,7 +36,7 @@
     //console.log(context.getDeviceCapabilities());
 
     //message channel
-    const channel = "urn:x-cast:webvideobrowser";
+    const channel = "urn:x-cast:streambrowser";
     context.addCustomMessageListener(channel, event => {
             console.log("received custom message:");
             console.log(event);
